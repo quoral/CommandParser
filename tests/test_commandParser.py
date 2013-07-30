@@ -16,9 +16,17 @@ class TestCommandParser(TestCase):
 
 	def test_add_command_foo_twice(self):
 		parser = CommandParser()
-		try:
-			parser.add_command("foo", helpers.bar)
-		except Exceptions.CommandAlreadyExists:
-			self.fail("parser.add_command(foo)")
+		parser.add_command("foo", helpers.bar)
 		self.assertRaises(Exceptions.CommandAlreadyExists, parser.add_command, "foo", helpers.bar)
 
+	def test_add_data(self):
+		parser = CommandParser()
+		try:
+			parser.add_data("foo_data")
+		except Exceptions.DataAlreadyExists:
+			self.fail("Data foo_data should not exist")
+
+	def test_add_data_twice(self):
+		parser = CommandParser()
+		parser.add_data("foo_data")
+		self.assertRaises(Exceptions.DataAlreadyExists, parser.add_data, "foo_data")
